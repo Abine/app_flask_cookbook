@@ -11,6 +11,7 @@ define :flask_cron, :enable => true, :deploy_dir => nil do
   if params[:enable]
     cron "flask_cron" do
       command "#{params[:deploy_dir]}/venv/bin/python #{params[:deploy_dir]}/cron.py"
+      minute rand(60)
       only_if { ::File.exists?("#{params[:deploy_dir]}/cron.py") }
     end
   else
