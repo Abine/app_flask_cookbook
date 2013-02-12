@@ -7,6 +7,12 @@
 master = true
 home = <%= @deploy_dir %>/venv
 socket = /run/uwsgi/app/<%= @app_name%>/socket
+enable-threads = true
+single-interpreter = true
+<%- if node[:newrelic][:app_name] %>
+eval = import newrelic.agent, <%= @app_name %>; newrelic.agent.initialize('/etc/newrelic/newrelic.ini','production'); application = newrelic.agent.wsgi_application()(<%= @app_name %>.<%= @callable %>.wsgi_app)
+<%- else %>
 module = <%= @app_name %>
 callable = <%= @callable %>
+<%- end %>
 chdir = <%= @deploy_dir %>
