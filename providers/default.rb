@@ -72,7 +72,7 @@ action :setup_db_connection do
     user node[:app][:user]
     group 'www-data'
     variables({
-      :db_host => new_resource.database_sever_fqdn,
+      :db_host => new_resource.database_server_fqdn,
       :db_user => new_resource.database_user,
       :db_pwd => new_resource.database_password,
       :db_name => new_resource.database_name
